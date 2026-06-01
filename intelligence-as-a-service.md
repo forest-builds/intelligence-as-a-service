@@ -12,7 +12,7 @@ Generative artificial intelligence is turning machine cognition into a measurabl
 
 This paper proposes a framework for measuring the economic return on consumed machine intelligence. The central concept is **cognitive efficiency**: validated incremental value produced per unit of metered machine cognition consumed. The framework distinguishes raw token usage, AI cost, useful output, validated value, human supervision burden, rework, latency, risk, nonuse opportunity cost, and overuse waste, and it pins each to defined variables and units (§4). It introduces task-level **Token ROI**, **Cognitive Efficiency**, the **Human–AI Leverage Ratio**, the **Nonuse Penalty**, the **Overuse Penalty**, and **Outcome-Adjusted AI Value** as candidate metrics for enterprise AI accounting and productivity research, and it demonstrates them on one worked example (§6).
 
-The core claim is not that more AI usage automatically creates more value. Rather, as AI becomes a variable economic input, the competitive advantage will likely belong to individuals and organizations that can route, compress, supervise, validate, and operationalize machine cognition better than peers. The distinctive contribution relative to ordinary ROI is the isolation of the *machine-cognition input* in the denominator (cognitive efficiency) from the *net financial return of the whole sociotechnical process* (ROI) — a separation that surfaces the real binding constraint: expert attention and validation capacity, not token volume.
+The core claim is not that more AI usage automatically creates more value. Rather, as AI becomes a variable economic input, the competitive advantage will likely belong to individuals and organizations that can route, compress, supervise, validate, and operationalize machine cognition better than peers. The distinctive contribution relative to ordinary ROI is the isolation of the *machine-cognition input* in the denominator (cognitive efficiency) from the *net financial return of the whole sociotechnical process* (ROI) — a separation that surfaces the real binding constraint: expert attention and validation capacity, not token volume. The paper further argues that the reason cognitive efficiency has been unmeasured in practice is not conceptual but infrastructural: the variables that most matter ($q$, validation confidence; $d$, deployment rate) require **behavioral validation signals** — implicit traces of whether AI output was accepted, modified, or discarded — which exist in every knowledge-work domain but are only routinely captured today in software engineering.
 
 ## 2. Introduction
 
@@ -28,7 +28,7 @@ The core thesis is that raw token consumption is an incomplete measure of AI pro
 
 This framing introduces two countervailing penalties. The **nonuse penalty** is the opportunity cost of not using AI when AI assistance would have improved speed, quality, learning, revenue, or decision quality. It is an economic counterfactual, not a moral judgment. The **overuse penalty** is the cost of excessive, poorly directed, or low-quality AI usage. High token consumption can indicate productive search, but it can also indicate confusion, weak task framing, poor judgment, or a workflow that substitutes machine verbosity for human clarity.
 
-The paper proceeds as follows. Section 3 reviews the relevant literature and consolidates it in a comparison table. Section 4 develops the conceptual framework with explicit notation and units. Section 5 defines the proposed metrics. Section 6 walks through one worked numerical example. Section 7 outlines empirical research designs. Section 8 states hypotheses. Sections 9 and 10 discuss limitations and ethics. Section 11 concludes. Appendix A provides a self-measuring instrument applied to this paper.
+The paper proceeds as follows. Section 3 reviews the relevant literature and consolidates it in a comparison table. Section 4 develops the conceptual framework with explicit notation and units, concluding with §4.8 on behavioral validation signals — the instrumentation layer that makes $q$ and $d$ measurable in practice. Section 5 defines the proposed metrics. Section 6 walks through one worked numerical example. Section 7 outlines empirical research designs. Section 8 states hypotheses. Sections 9 and 10 discuss limitations and ethics. Section 11 concludes. Appendix A provides a self-measuring instrument applied to this paper.
 
 ## 3. Literature Review
 
@@ -161,6 +161,36 @@ Human–AI leverage is validated incremental value per unit of human supervision
 $$\text{Leverage} = \frac{\Delta V}{H}$$
 
 AI does not eliminate human judgment in most valuable workflows; it relocates it — from drafting to framing, searching to filtering, producing to validating, execution to orchestration. If output requires too much review, leverage falls; if a skilled human can quickly steer and validate AI into a high-value result, leverage rises. Because human attention is typically the scarce input, leverage is likely one of the strongest predictors of real-world AI ROI, and explains why training, domain expertise, workflow design, and evaluation infrastructure matter as much as model access.
+
+### 4.8 Behavioral validation signals — the missing instrumentation layer
+
+The framework's two softest variables are $q$ (validation confidence) and $d$ (deployment rate). In practice, they go unmeasured not because the concept is wrong but because the instrumentation has not been built. The reason $q$ and $d$ are *easy* to measure in software engineering is that code editors already capture an implicit behavioral signal: the user either accepts the suggestion, edits it, or reverts it. That accept–edit–revert trace is a verifiable reward that can be observed without asking the user anything.
+
+Every knowledge-work domain has an equivalent trace. It is the delta between what the AI produced and what the human ultimately submitted, sent, published, or acted on. We call these **behavioral validation signals**: implicit, non-intrusive records of whether AI output was accepted, modified, or discarded at each stage of a workflow.
+
+| Domain | AI output | Behavioral signal |
+|---|---|---|
+| Code | Suggested completion | Accept / edit / revert |
+| Document drafting | Paragraph or section | Kept verbatim / edited / deleted |
+| Research | Claim with citation | Survived final draft / removed |
+| Email | Draft reply | Sent as-is / edited / discarded |
+| Proposals / sales | Section of a bid | Included in submission / cut |
+| Slides | Generated layout or copy | Kept / reformatted / replaced |
+| Customer support | Suggested response | Sent / escalated / rewritten |
+| Legal / compliance | Draft clause | Survived redline / struck |
+| Tutoring | Explanation or worked example | Student accepted / requested re-explanation |
+
+The pattern is consistent: wherever a human takes a final action downstream of an AI output, the gap between the AI's version and the human's final version encodes $q$ and $d$ directly and continuously — without surveys, rubrics, or explicit scoring.
+
+**Formalizing the signal.** Let $r_t \in [0,1]$ be a scalar representation of the behavioral signal at step $t$ — for example, the fraction of AI-generated tokens retained in the final submission. Then an empirical estimate of $q$ can be constructed as:
+
+$$\hat{q} = \mathbb{E}[r_t \mid \text{task type, user, context}]$$
+
+and $d$ is simply the share of interactions where the output entered any downstream artifact at all ($r_t > 0$). Both can be estimated from logs without human annotation, exactly as Cursor estimates them from code editor telemetry.
+
+**Why this matters beyond measurement.** A system that continuously captures behavioral validation signals can do more than measure cognitive efficiency after the fact — it can improve the underlying AI over time. The learning loop is: generate output → capture behavioral signal → update model toward outputs that survive human review. This is the mechanism behind Cursor's continual learning: online training steps taken on batches of accept/revert signals, measured in days not months. The same architecture applies to any domain with a behavioral trace.
+
+This implies that the organizations best positioned to improve cognitive efficiency over time are not those with the most tokens or the largest models, but those that **instrument their workflows to capture behavioral validation signals and close the loop**. The instrumentation layer — not the model — is the durable competitive asset. A general model becomes a specialized, high-leverage model through accumulated behavioral signal, domain by domain, workflow by workflow.
 
 ## 5. Proposed Metrics
 

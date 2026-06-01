@@ -1,12 +1,19 @@
 # notes.md — Editorial state of `intelligence-as-a-service.md`
 
-**Current draft:** Draft 1 · **Last pass:** 2026-05-31 · **Target:** publishable working paper
+**Current draft:** Draft 1.1 · **Last pass:** 2026-05-31 · **Target:** publishable working paper
 
 This file is the running editorial tracker for the paper. It records what each pass changed, what's still open, and what to do next. The paper no longer carries its critique inline — that lives here.
 
 ---
 
 ## 1. Changelog
+
+### Draft 1.1 (2026-05-31) — added §4.8 behavioral validation signals
+
+- **New section §4.8: Behavioral Validation Signals.** Core insight: $q$ and $d$ go unmeasured not because the concept is wrong but because the instrumentation layer hasn't been built. Every knowledge-work domain has an implicit behavioral trace — the delta between AI output and what the human ultimately submitted/sent/published. Formalizes $\hat{q} = \mathbb{E}[r_t]$ from the token-retention rate $r_t$. Includes a domain taxonomy table (code, docs, research, email, proposals, slides, support, legal, tutoring). Names the instrumentation layer — not the model — as the durable competitive asset.
+- **Abstract updated** to surface the behavioral validation signal insight.
+- **§2 roadmap sentence updated** to reference §4.8.
+- **O3 partially resolved** — §4.8 shows how $q$ and $d$ can be estimated from behavioral traces without rubrics or annotation, which changes the nature of the open item (see updated O3 below).
 
 ### Draft 1 (2026-05-31) — executed the full revision roadmap
 - **Math tightened + variables/units table (was Draft-1 item).** Added §4.1 notation table (all $V$, $C$, $M$, $H$, $q$, $d$ defined with units and boundary conditions). Rewrote every metric with consistent symbols. Token ROI now split into `ROI_machine` and `ROI_total` to stop the ambiguity about what's in the denominator.
@@ -30,7 +37,7 @@ Ordered by what most blocks publishability.
 |---|---|---|---|---|
 | O1 | **Verify all cited effect sizes** against primary sources (Noy & Zhang, Brynjolfsson et al., Dell'Acqua et al., IMF, OECD). Replace directional language with sourced magnitudes + full citations/bibliography. | §3, §3.6 | Open | Needs literature pull; no bibliography section yet |
 | O2 | **Overuse penalty still counterfactual.** $C_{AI}^*$ defined but only illustrated. Needs a real benchmarking protocol (model-swap / prompt-compression ladder) to estimate "minimum sufficient." | §4.6, §5.5 | Partial | Requires experimental design or pilot data |
-| O3 | **Outcome-Adjusted AI Value can drift subjective.** $q$ (validation confidence) and $d$ (deployment) need concrete scoring rubrics or domain-specific validation methods. | §5.6 | Open | Rubric design |
+| O3 | **$q$ and $d$ measurement.** §4.8 shows behavioral traces can estimate both without annotation. Remaining work: (a) design the logging schema for at least two non-code domains; (b) show empirically that $\hat{q}$ from token retention correlates with expert quality scores. | §4.8, §5.6 | Partial | Domain instrumentation design |
 | O4 | **Worked example uses illustrative numbers.** Replace §6 figures with at least one real measured run (the pilot below feeds this directly). | §6 | Open | Run the pilot |
 | O5 | **No bibliography / reference list.** Author names only; no years, venues, DOIs. | whole paper | Open | Depends on O1 |
 | O6 | **Empirical designs not yet powered.** §7 lacks sample sizes, randomization detail, primary-outcome pre-registration. | §7 | Open | Pre-registration pass |
@@ -45,6 +52,7 @@ Ordered by what most blocks publishability.
 3. **Human–AI leverage** is the likely publishable insight — the constraint is expert attention, not token volume. (Now the lead claim in §11.)
 4. **Living-example appendix** — self-auditing without being gimmicky.
 5. **Activity → output → validated value → operationalized value** separation — where most enterprise AI measurement fails.
+6. **Behavioral validation signals (§4.8)** — the new sharpest edge. The reason CE is unmeasured isn't the framework, it's the missing instrumentation. This generalizes what Cursor does for code to every knowledge-work domain. Potentially the most original contribution in the paper.
 
 ---
 
