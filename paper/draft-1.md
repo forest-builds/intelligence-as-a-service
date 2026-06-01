@@ -2,7 +2,7 @@
 
 *A Framework for Token-Level Productivity Accounting, Nonuse Penalty, and Human–AI Leverage*
 
-> **Draft 1 (2026-05-31).** This revision incorporates the editorial roadmap tracked in `notes.md`: tightened notation and a variables/units table (§4), a literature comparison table (§3), one fully worked numerical example (§6), a self-measuring appendix instrument (Appendix A), and reduced societal-scope language in favor of the narrower publishable claim. **Citation note:** effect sizes attributed to specific studies below are approximate and flagged for verification before submission; per this paper's own thesis, unverified claims must not be booked as established value.
+> **Draft 1 (2026-05-31).** This revision incorporates the editorial roadmap tracked in `editorial-notes.md`: tightened notation and a variables/units table (§4), a literature comparison table (§3), one fully worked numerical example (§6), a self-measuring appendix instrument (Appendix A), and reduced societal-scope language in favor of the narrower publishable claim. **Citation note:** effect sizes attributed to specific studies below are approximate and flagged for verification before submission; per this paper's own thesis, unverified claims must not be booked as established value.
 
 ---
 
@@ -213,7 +213,7 @@ $C_{AI} - C_{AI}^{*}$, where $C_{AI}^{*}$ is found by benchmarking cheaper confi
 
 ### 5.6 Outcome-Adjusted AI Value
 $$\text{OAV} = V_{AI} \cdot q \cdot d - C_{risk}$$
-This discourages booking unused drafts, unverified analyses, or risky outputs as realized value, and allows probabilistic evaluation: high potential value at low validation confidence is not equal to verified, deployed value. $q$ and $d$ require scoring rubrics or domain-specific validation methods (a known soft spot — see `notes.md`).
+This discourages booking unused drafts, unverified analyses, or risky outputs as realized value, and allows probabilistic evaluation: high potential value at low validation confidence is not equal to verified, deployed value. $q$ and $d$ require scoring rubrics or domain-specific validation methods (a known soft spot — see `editorial-notes.md`).
 
 ## 6. Worked Numerical Example
 
@@ -257,7 +257,7 @@ This discourages booking unused drafts, unverified analyses, or risky outputs as
 Randomly assign developers to comparable tasks under escalating AI conditions: (1) no AI; (2) basic AI access; (3) AI with structured prompts; (4) AI with retrieval and test automation; (5) AI with model routing and a review checklist. Outcomes: completion time, code quality, test coverage, defect rate, review time, rework, token consumption, satisfaction. $CE$ = accepted pull requests (validated code quality) per unit of $M$. Hypothesis: AI raises speed but improves *net* value only when paired with validation infrastructure (tests, review, security checks).
 
 ### 7.2 Research writing
-Evaluate AI-assisted drafting, literature synthesis, and citation verification: short research briefs produced under different AI conditions, scored for factual accuracy, citation validity, argument quality, originality, clarity, revision burden, and expert acceptance. $CE$ measured as *accepted claims per unit of $M$ after citation verification* — not words per token. (This design is operationalized as the pilot in `notes.md`.)
+Evaluate AI-assisted drafting, literature synthesis, and citation verification: short research briefs produced under different AI conditions, scored for factual accuracy, citation validity, argument quality, originality, clarity, revision burden, and expert acceptance. $CE$ measured as *accepted claims per unit of $M$ after citation verification* — not words per token. (This design is operationalized as the pilot in `editorial-notes.md`.)
 
 ### 7.3 Business development and sales
 Test AI-assisted account research, proposal drafting, and opportunity qualification against baseline workflows on comparable opportunities. Outcomes: research time, lead quality, proposal quality, win rate, response rate, cost per qualified opportunity. Because outcomes are noisy, include intermediate validated outcomes (better qualification, faster pursuit decisions, reduced wasted pursuit effort).

@@ -1,0 +1,5 @@
+# No external dependencies required for the core evaluator.
+# The following are optional for the Streamlit UI (coming soon):
+# streamlit>=1.35
+# pandas>=2.0
+# plotly>=5.0

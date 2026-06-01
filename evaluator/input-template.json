@@ -1,0 +1,53 @@
+{
+  "_comment": "Cognitive Efficiency Evaluator — input template. Fill in your workflow data and run: python evaluate.py --input this-file.json",
+
+  "task_description": "Brief description of the AI-assisted task",
+  "domain": "writing | code | research | email | proposal | support | legal | tutoring | other",
+  "model": "e.g. claude-opus-4-8, gpt-4o, gemini-1.5-pro",
+  "date": "YYYY-MM-DD",
+
+  "value": {
+    "_comment": "Estimated value of the deliverable. If uncertain, use a conservative lower bound.",
+    "baseline_value_usd": 0.0,
+    "ai_value_usd": 0.0
+  },
+
+  "cost_baseline": {
+    "_comment": "Full cost of completing this task without AI",
+    "human_hours": 0.0,
+    "loaded_wage_usd_per_hour": 75.0,
+    "other_cost_usd": 0.0
+  },
+
+  "cost_ai": {
+    "_comment": "All costs attributed to the AI-assisted process",
+    "tokens_input": 0,
+    "tokens_output": 0,
+    "token_cost_usd": 0.0,
+    "infra_cost_usd": 0.0,
+    "human_hours": 0.0,
+    "loaded_wage_usd_per_hour": 75.0,
+    "rework_hours": 0.0,
+    "risk_cost_usd": 0.0,
+    "coord_cost_usd": 0.0
+  },
+
+  "validation": {
+    "_comment": "If you have explicit scores, fill these. If not, use behavioral_log below instead.",
+    "validation_confidence": null,
+    "deployment_rate": null
+  },
+
+  "behavioral_log": {
+    "_comment": "Optional. Array of {ai_tokens, retained_tokens, submitted} observations. Used to estimate q and d when explicit scores are unavailable.",
+    "observations": []
+  },
+
+  "overuse_benchmark": {
+    "_comment": "Optional. If you tested a cheaper configuration (smaller model, shorter prompt, etc.) that reached a comparable outcome, fill this in to compute the overuse penalty.",
+    "min_sufficient_ai_cost_usd": null,
+    "benchmark_description": ""
+  },
+
+  "notes": ""
+}
