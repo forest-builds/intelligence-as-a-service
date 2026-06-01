@@ -38,15 +38,15 @@ python evaluator/test_evaluate.py
 
 ## Beat 4 — The case (2:40–4:00)
 
-> Now a real domain. FEMA Public Assistance: after a disaster, every reimbursement package — 150 pages of invoices and contracts — gets reviewed by an expert. Slow, expensive, and errors cost millions in later deobligations.
+> Now a real, fully-public domain: open-source issue triage. Every popular repo drowns in issues. Each one needs classifying, deduping, severity-rating, and a response — and maintainer attention is the thing that runs out. Maintainer burnout is the failure mode.
 
 *On screen — live terminal:*
 ```bash
-python evaluator/evaluate.py --input demos/fema-pa-review/workflow.json
+python evaluator/evaluate.py --input demos/github-issue-triage/workflow.json
 ```
-> AI assists the review. Watch what the framework surfaces that a quality dashboard would miss. Deliverable quality barely moves. But reviewer time drops from 4 hours to 1.75 — a 2.3× capacity multiplier — and expected error cost halves. Net value: $499 per package.
+> AI assists the triage. Watch the two ROI numbers. On the compute cost alone — seven cents — it's 151×. On the total cost including five minutes of maintainer time, it's 0.65×. The model is free. Attention is everything.
 >
-> Across one disaster's worth of packages, that's millions in forgone value and tens of thousands of reviewer-hours — the nonuse penalty. That's the number a program office should track. Not the token bill.
+> Quality barely moves, but triage time drops from 12 minutes to 5 — a 2.4× throughput multiplier. For a maintainer facing 200 issues, that's a weekend back. And notice the framework flags that AI *raised* risk here: a bad auto-reply can alienate a contributor. It doesn't pretend AI is free upside.
 
 ## Beat 5 — The implication (4:00–4:45)
 

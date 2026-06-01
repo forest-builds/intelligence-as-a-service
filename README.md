@@ -15,7 +15,7 @@ This lab builds the theory, math, tooling, and evidence base for answering that 
 | Theory | [Working paper](paper/draft-1.md) — cognitive efficiency framework | Draft 1.1 |
 | Math | Variables, units, and metric formulas | In paper §4 |
 | Tool | [Cognitive Efficiency Evaluator](evaluator/) | Working CLI + passing tests |
-| Case study | [FEMA Public Assistance review](demos/fema-pa-review/) | Modeled, run through the tool |
+| Case study | [GitHub issue triage](demos/github-issue-triage/) | Modeled, run through the tool |
 | Demos | [Research synthesis](demos/research-synthesis/) · [video script](demos/demo-video-script.md) | Protocol ready |
 | Benchmarks | [Domain benchmarks](benchmarks/) | Incoming |
 | Plan | [90-day roadmap](ROADMAP.md) | Live |
@@ -96,13 +96,13 @@ A tool that takes an AI-assisted workflow run and returns a cognitive efficiency
 
 ---
 
-## Demos
+## Demos & case studies
 
-→ **[demos/research-synthesis/](demos/research-synthesis/)**
+→ **[demos/github-issue-triage/](demos/github-issue-triage/)** — flagship case study (modeled, run through the tool). Open-source issue triage on fully public data. Finding: Token ROI on compute is 151×, but on total cost including maintainer time it's 0.65× — the model is free, attention is everything.
 
-The first demo: AI-assisted research synthesis. Three-condition pilot comparing no AI, AI drafting only, and AI drafting + critique + human verification. Primary metric: validated claims per (dollar + human hour).
+→ **[demos/research-synthesis/](demos/research-synthesis/)** — AI-assisted literature review. Three-condition pilot comparing no AI, AI drafting only, and AI drafting + critique + human verification. Primary metric: validated claims per (dollar + human hour).
 
-More demos incoming: enterprise document review · agentic coding workflow · AI-assisted compliance testing.
+More demos incoming: scientific claim verification · meeting-to-decision synthesis · AI-assisted learning.
 
 ---
 

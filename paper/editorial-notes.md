@@ -1,4 +1,4 @@
-# notes.md — Editorial state of `intelligence-as-a-service.md`
+# Editorial state of `paper/draft-1.md`
 
 **Current draft:** Draft 1.1 · **Last pass:** 2026-05-31 · **Target:** publishable working paper
 
@@ -14,7 +14,7 @@ Not a paper change, but the paper is now backed by working artifacts (see [ROADM
 
 - **Evaluator implemented** (`evaluator/evaluate.py`) — computes all six metrics from a workflow run; standard-library Python, no deps. **Regression test passes**: reproduces this paper's §6 worked example exactly (CE 33.3×, ΔN $426.50, leverage $80/h, OAV $1,280). The tool and the paper provably agree.
 - **Behavioral-log estimator** built — estimates $q$ and $d$ from accept/retain/submit traces (operationalizes §4.8).
-- **FEMA Public Assistance case study** (`demos/fema-pa-review/`) — modeled scenario run through the tool. Key finding reinforces the thesis in a real domain: deliverable quality barely moves (ΔV $100), but reviewer time drops 2.3× and the nonuse penalty is $499/package; Token ROI machine 142× vs. total 1.38× — tokens are a rounding error, expert attention is the constraint.
+- **GitHub issue-triage case study** (`demos/github-issue-triage/`) — modeled, public-data-friendly scenario run through the tool. Key finding reinforces the thesis in a neutral domain: deliverable quality barely moves (ΔV $2), but maintainer time drops 2.4× and the nonuse penalty is $10.59/issue; Token ROI machine 151× vs. total 0.65× — the model is free, attention is everything. (Replaced an earlier client-adjacent case study; all public artifacts are now domain-neutral knowledge-work workflows.)
 - **Demo video script + 90-day roadmap** added.
 - **Note for O4:** the §6 numbers are still illustrative; the FEMA case is *modeled*, not measured. First *measured* run (research-synthesis pilot or measured FEMA) remains the top open item.
 

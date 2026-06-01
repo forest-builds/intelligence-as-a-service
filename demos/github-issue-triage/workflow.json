@@ -1,0 +1,48 @@
+{
+  "_comment": "MODELED scenario (not a measured run). Open-source GitHub issue triage. Public-data-friendly, domain-neutral. Assumptions documented in README.md. Replace with measured values from a real triage pilot to make this a primary-source case study.",
+
+  "task_description": "Triage one incoming open-source GitHub issue: classify, detect duplicates, estimate severity, suggest next step, draft maintainer response",
+  "domain": "oss-issue-triage",
+  "model": "frontier LLM + embedding search over existing issues (modeled)",
+  "date": "2026-05-31",
+
+  "value": {
+    "_comment": "Deliverable value = value of one correctly-triaged issue (routed, labeled, contributor engaged so it can be resolved). AI version marginally higher from faster first response. See README sensitivity note.",
+    "baseline_value_usd": 40.0,
+    "ai_value_usd": 42.0
+  },
+
+  "cost_baseline": {
+    "_comment": "Maintainer at a senior-engineer loaded rate. 12 min/issue. Risk = expected cost of misrouting/mislabeling (~downstream rework).",
+    "human_hours": 0.2,
+    "loaded_wage_usd_per_hour": 100.0,
+    "other_cost_usd": 0.0,
+    "risk_cost_usd": 5.0
+  },
+
+  "cost_ai": {
+    "_comment": "AI classifies, runs embedding search for duplicates, estimates severity, drafts the response; maintainer verifies. Risk is HIGHER than baseline ($8 vs $5): a bad auto-response can alienate a contributor — a real community cost, only partly offset by verification.",
+    "tokens_input": 8000,
+    "tokens_output": 1000,
+    "token_cost_usd": 0.05,
+    "infra_cost_usd": 0.02,
+    "human_hours": 0.0667,
+    "loaded_wage_usd_per_hour": 100.0,
+    "rework_hours": 0.0167,
+    "risk_cost_usd": 8.0,
+    "coord_cost_usd": 0.0
+  },
+
+  "validation": {
+    "_comment": "Maintainer accepts ~82% of AI labels/drafts as-is; 18% edited. All triaged issues are acted on.",
+    "validation_confidence": 0.82,
+    "deployment_rate": 1.0
+  },
+
+  "overuse_benchmark": {
+    "min_sufficient_ai_cost_usd": 16.35,
+    "benchmark_description": "Smaller classification model + cached embeddings reaches comparable triage quality at M=$0.02"
+  },
+
+  "notes": "Modeled from plausible OSS maintainer economics. NOT a measured pilot. Public GitHub issues make this fully reproducible with real data."
+}
