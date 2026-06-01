@@ -1,0 +1,44 @@
+{
+  "_comment": "Verification fixture: the worked example from the paper (§6). Running the evaluator on this should reproduce the paper's published metrics exactly: CE ~33x, leverage $80/h, nonuse penalty $426.50, OAV $1280. This is the regression test for the evaluator.",
+
+  "task_description": "Produce a 1,500-word research brief (paper §6 worked example)",
+  "domain": "research",
+  "model": "illustrative",
+  "date": "2026-05-31",
+
+  "value": {
+    "baseline_value_usd": 1200.0,
+    "ai_value_usd": 1400.0
+  },
+
+  "cost_baseline": {
+    "human_hours": 6.0,
+    "loaded_wage_usd_per_hour": 75.0,
+    "other_cost_usd": 0.0,
+    "risk_cost_usd": 20.0
+  },
+
+  "cost_ai": {
+    "tokens_input": 40000,
+    "tokens_output": 20000,
+    "token_cost_usd": 6.0,
+    "infra_cost_usd": 0.0,
+    "human_hours": 2.0,
+    "loaded_wage_usd_per_hour": 75.0,
+    "rework_hours": 0.5,
+    "risk_cost_usd": 50.0,
+    "coord_cost_usd": 0.0
+  },
+
+  "validation": {
+    "validation_confidence": 0.95,
+    "deployment_rate": 1.0
+  },
+
+  "overuse_benchmark": {
+    "min_sufficient_ai_cost_usd": 239.0,
+    "benchmark_description": "Smaller drafting model reaches comparable quality 7.8 brief at M=$1.50"
+  },
+
+  "notes": "Illustrative figures from the paper. Used as the evaluator's regression test."
+}

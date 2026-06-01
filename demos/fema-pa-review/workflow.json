@@ -1,0 +1,48 @@
+{
+  "_comment": "MODELED scenario (not a measured run). FEMA Public Assistance project-worksheet package review. Assumptions are transparent and documented in README.md. Replace with measured values from a real pilot to make this a primary-source case study.",
+
+  "task_description": "Initial eligibility + documentation review of one FEMA Public Assistance project worksheet package (~150 pages: invoices, contracts, damage descriptions, force-account labor records, photos)",
+  "domain": "regulatory-document-review",
+  "model": "frontier-VLM + retrieval (modeled)",
+  "date": "2026-05-31",
+
+  "value": {
+    "_comment": "Deliverable value = program value of one defensible, audit-ready review. AI version slightly higher due to more consistent documentation-completeness checking. See README sensitivity note — headline metrics are robust to this anchor.",
+    "baseline_value_usd": 2000.0,
+    "ai_value_usd": 2100.0
+  },
+
+  "cost_baseline": {
+    "_comment": "Human reviewer at fully-loaded public-sector/contractor rate. Risk = expected cost of a downstream error (missed ineligible cost or doc gap triggering later deobligation/OIG finding): ~8% x $5,000.",
+    "human_hours": 4.0,
+    "loaded_wage_usd_per_hour": 90.0,
+    "other_cost_usd": 0.0,
+    "risk_cost_usd": 400.0
+  },
+
+  "cost_ai": {
+    "_comment": "AI ingests the package, extracts cost line items, checks completeness against an eligibility checklist, drafts the determination narrative; human verifies. Residual risk ~4% x $5,000 (lower: AI catches doc gaps humans skim, but adds hallucination risk offset by verification).",
+    "tokens_input": 100000,
+    "tokens_output": 15000,
+    "token_cost_usd": 2.50,
+    "infra_cost_usd": 1.00,
+    "human_hours": 1.5,
+    "loaded_wage_usd_per_hour": 90.0,
+    "rework_hours": 0.25,
+    "risk_cost_usd": 200.0,
+    "coord_cost_usd": 0.0
+  },
+
+  "validation": {
+    "_comment": "Reviewer accepts ~88% of AI determinations/flags as-is; 12% modified. All reviewed packages are submitted.",
+    "validation_confidence": 0.88,
+    "deployment_rate": 1.0
+  },
+
+  "overuse_benchmark": {
+    "min_sufficient_ai_cost_usd": 358.70,
+    "benchmark_description": "Cheaper extraction model + tighter retrieval reaches comparable review quality at M=$1.20"
+  },
+
+  "notes": "Modeled from plausible PA review economics. NOT a measured pilot. The point is to demonstrate the evaluator on a high-value public-sector workflow and to expose which assumptions matter."
+}

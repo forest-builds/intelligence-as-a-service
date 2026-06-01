@@ -8,6 +8,16 @@ This file is the running editorial tracker for the paper. It records what each p
 
 ## 1. Changelog
 
+### Repo build-out (2026-05-31) — paper became a lab
+
+Not a paper change, but the paper is now backed by working artifacts (see [ROADMAP.md](../ROADMAP.md)):
+
+- **Evaluator implemented** (`evaluator/evaluate.py`) — computes all six metrics from a workflow run; standard-library Python, no deps. **Regression test passes**: reproduces this paper's §6 worked example exactly (CE 33.3×, ΔN $426.50, leverage $80/h, OAV $1,280). The tool and the paper provably agree.
+- **Behavioral-log estimator** built — estimates $q$ and $d$ from accept/retain/submit traces (operationalizes §4.8).
+- **FEMA Public Assistance case study** (`demos/fema-pa-review/`) — modeled scenario run through the tool. Key finding reinforces the thesis in a real domain: deliverable quality barely moves (ΔV $100), but reviewer time drops 2.3× and the nonuse penalty is $499/package; Token ROI machine 142× vs. total 1.38× — tokens are a rounding error, expert attention is the constraint.
+- **Demo video script + 90-day roadmap** added.
+- **Note for O4:** the §6 numbers are still illustrative; the FEMA case is *modeled*, not measured. First *measured* run (research-synthesis pilot or measured FEMA) remains the top open item.
+
 ### Draft 1.1 (2026-05-31) — added §4.8 behavioral validation signals
 
 - **New section §4.8: Behavioral Validation Signals.** Core insight: $q$ and $d$ go unmeasured not because the concept is wrong but because the instrumentation layer hasn't been built. Every knowledge-work domain has an implicit behavioral trace — the delta between AI output and what the human ultimately submitted/sent/published. Formalizes $\hat{q} = \mathbb{E}[r_t]$ from the token-retention rate $r_t$. Includes a domain taxonomy table (code, docs, research, email, proposals, slides, support, legal, tutoring). Names the instrumentation layer — not the model — as the durable competitive asset.

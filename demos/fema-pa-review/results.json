@@ -1,0 +1,16 @@
+{
+  "delta_v_usd": 100.0,
+  "delta_n_usd": 499.0,
+  "m_usd": 3.5,
+  "c_ai_usd": 361.0,
+  "q": 0.88,
+  "d": 1.0,
+  "cognitive_efficiency": 28.57,
+  "token_roi_machine": 142.57,
+  "token_roi_total": 1.3823,
+  "human_ai_leverage_usd_per_hour": 57.14,
+  "nonuse_penalty_usd": 499.0,
+  "overuse_penalty_usd": 2.3,
+  "outcome_adjusted_value_usd": 1648.0,
+  "summary": "Cognitive efficiency 28.6\u00d7 ($100 validated value per $3.50 of machine cognition). Human\u2013AI leverage $57/h. Token ROI (machine) 142.6\u00d7 vs. total 1.38\u00d7 \u2014 gap driven by human supervision cost, which is the binding constraint. Overuse penalty $2.30 \u2014 cheaper config reaches comparable outcome. Validation confidence low (88%) \u2014 significant output was modified or rejected."
+}

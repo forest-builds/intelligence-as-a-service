@@ -16,7 +16,8 @@
     "_comment": "Full cost of completing this task without AI",
     "human_hours": 0.0,
     "loaded_wage_usd_per_hour": 75.0,
-    "other_cost_usd": 0.0
+    "other_cost_usd": 0.0,
+    "risk_cost_usd": 0.0
   },
 
   "cost_ai": {

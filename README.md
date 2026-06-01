@@ -12,11 +12,15 @@ This lab builds the theory, math, tooling, and evidence base for answering that 
 
 | Layer | Artifact | Status |
 |---|---|---|
-| Theory | [Working paper](paper/draft-1.md) — cognitive efficiency framework | Draft 1 |
+| Theory | [Working paper](paper/draft-1.md) — cognitive efficiency framework | Draft 1.1 |
 | Math | Variables, units, and metric formulas | In paper §4 |
-| Tool | [Cognitive Efficiency Evaluator](evaluator/) | Skeleton |
-| Demos | [Research synthesis workflow](demos/research-synthesis/) | Protocol ready |
+| Tool | [Cognitive Efficiency Evaluator](evaluator/) | Working CLI + passing tests |
+| Case study | [FEMA Public Assistance review](demos/fema-pa-review/) | Modeled, run through the tool |
+| Demos | [Research synthesis](demos/research-synthesis/) · [video script](demos/demo-video-script.md) | Protocol ready |
 | Benchmarks | [Domain benchmarks](benchmarks/) | Incoming |
+| Plan | [90-day roadmap](ROADMAP.md) | Live |
+
+> **The tool agrees with the theory.** `python evaluator/test_evaluate.py` reproduces the paper's §6 worked example exactly (CE 33.3×, leverage $80/h, nonuse penalty $426.50). The framework isn't just prose — it computes.
 
 ---
 
@@ -86,7 +90,9 @@ Editorial state: **[paper/editorial-notes.md](paper/editorial-notes.md)**
 
 A tool that takes an AI-assisted workflow run and returns a cognitive efficiency score and full metric breakdown. Input schema defined. Python implementation in progress.
 
-**Try it:** fill out [evaluator/input-template.json](evaluator/input-template.json) with your own workflow data and run `python evaluator/evaluate.py`.
+**Try it:** fill out [evaluator/input-template.json](evaluator/input-template.json) with your own workflow data and run `python evaluator/evaluate.py --input your-file.json`. No dependencies — pure standard-library Python.
+
+**Verify it:** `python evaluator/test_evaluate.py` checks the tool against the paper's worked example and the behavioral-log estimator.
 
 ---
 

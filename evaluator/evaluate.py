@@ -25,6 +25,7 @@ class WorkflowRun:
     baseline_human_hours: float
     baseline_loaded_wage: float
     baseline_other_cost_usd: float = 0.0
+    baseline_risk_cost_usd: float = 0.0
 
     # AI cost components
     token_cost_usd: float = 0.0
@@ -60,6 +61,7 @@ class WorkflowRun:
             baseline_human_hours=cb.get("human_hours", 0.0),
             baseline_loaded_wage=cb.get("loaded_wage_usd_per_hour", 75.0),
             baseline_other_cost_usd=cb.get("other_cost_usd", 0.0),
+            baseline_risk_cost_usd=cb.get("risk_cost_usd", 0.0),
             token_cost_usd=ca.get("token_cost_usd", 0.0),
             infra_cost_usd=ca.get("infra_cost_usd", 0.0),
             ai_human_hours=ca.get("human_hours", 0.0),
@@ -110,7 +112,8 @@ def evaluate(run: WorkflowRun) -> dict:
 
     # Cost components
     baseline_human_cost = run.baseline_human_hours * run.baseline_loaded_wage
-    baseline_cost = baseline_human_cost + run.baseline_other_cost_usd
+    baseline_cost = (baseline_human_cost + run.baseline_other_cost_usd
+                     + run.baseline_risk_cost_usd)
 
     ai_human_cost = (run.ai_human_hours + run.rework_hours) * run.ai_loaded_wage
     m = run.token_cost_usd + run.infra_cost_usd           # metered machine cognition
@@ -124,7 +127,8 @@ def evaluate(run: WorkflowRun) -> dict:
     ce = delta_v / m if m > 0 else None
     roi_machine = delta_n / m if m > 0 else None
     roi_total = delta_n / c_ai if c_ai > 0 else None
-    leverage = delta_v / run.ai_human_hours if run.ai_human_hours > 0 else None
+    total_human_hours = run.ai_human_hours + run.rework_hours
+    leverage = delta_v / total_human_hours if total_human_hours > 0 else None
     nonuse_penalty = delta_n if delta_n > 0 else 0.0
     overuse_penalty = (c_ai - run.min_sufficient_ai_cost_usd
                        if run.min_sufficient_ai_cost_usd is not None else None)
