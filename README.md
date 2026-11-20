@@ -15,6 +15,7 @@ This lab builds the theory, math, tooling, and evidence base for answering that 
 | Theory | [Working paper](paper/draft-1.md) — cognitive efficiency framework | Draft 1.1 |
 | Math | Variables, units, and metric formulas | In paper §4 |
 | Tool | [Cognitive Efficiency Evaluator](evaluator/) | Working CLI + passing tests |
+| MVP | [Calculator with teeth](mvp/) | Standalone browser calculator |
 | Case study | [GitHub issue triage](demos/github-issue-triage/) | Modeled, run through the tool |
 | Demos | [Research synthesis](demos/research-synthesis/) · [video script](demos/demo-video-script.md) | Protocol ready |
 | Benchmarks | [Domain benchmarks](benchmarks/) | Incoming |
@@ -93,6 +94,12 @@ A tool that takes an AI-assisted workflow run and returns a cognitive efficiency
 **Try it:** fill out [evaluator/input-template.json](evaluator/input-template.json) with your own workflow data and run `python evaluator/evaluate.py --input your-file.json`. No dependencies — pure standard-library Python.
 
 **Verify it:** `python evaluator/test_evaluate.py` checks the tool against the paper's worked example and the behavioral-log estimator.
+
+## MVP calculator
+
+→ **[mvp/calculator.html](mvp/calculator.html)**
+
+A no-install browser calculator for rough AI usage projections. It asks natural questions — subscriptions, task volume, time saved, review burden, accepted-output rate, salary/revenue/value proxy — and returns a worth-it verdict, net value estimate, ROI, cognitive efficiency, and next action.
 
 ---
 

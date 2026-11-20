@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cognitive Efficiency Calculator</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #17201b;
+      --muted: #66736b;
+      --line: #d8ded9;
+      --bg: #f7f8f4;
+      --panel: #ffffff;
+      --accent: #0f7c63;
+      --accent-2: #a4452c;
+      --soft: #e9f2ed;
+      --warn: #fff0dc;
+      --bad: #fbe7e0;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.45;
+    }
+
+    header {
+      padding: 28px clamp(18px, 4vw, 44px) 18px;
+      border-bottom: 1px solid var(--line);
+      background: var(--panel);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(1.55rem, 3vw, 2.35rem);
+      letter-spacing: 0;
+    }
+
+    .dek {
+      max-width: 760px;
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+      gap: 18px;
+      padding: 18px clamp(18px, 4vw, 44px) 36px;
+      align-items: start;
+    }
+
+    section {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 18px;
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-size: 1rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    label {
+      display: grid;
+      gap: 5px;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    input, select {
+      width: 100%;
+      min-height: 40px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 8px 10px;
+      color: var(--ink);
+      background: #fff;
+      font: inherit;
+    }
+
+    button {
+      min-height: 40px;
+      border: 1px solid #0c6a55;
+      border-radius: 6px;
+      padding: 8px 12px;
+      color: #fff;
+      background: var(--accent);
+      font: inherit;
+      cursor: pointer;
+    }
+
+    button:hover { background: #0c6a55; }
+
+    input:focus, select:focus {
+      outline: 2px solid rgba(15, 124, 99, 0.2);
+      border-color: var(--accent);
+    }
+
+    .stack {
+      display: grid;
+      gap: 14px;
+    }
+
+    .results {
+      position: sticky;
+      top: 14px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .verdict {
+      padding: 16px;
+      border-radius: 8px;
+      background: var(--soft);
+      border: 1px solid #c9ded3;
+    }
+
+    .verdict.warning { background: var(--warn); border-color: #efd0a4; }
+    .verdict.bad { background: var(--bad); border-color: #efc4b7; }
+
+    .verdict strong {
+      display: block;
+      font-size: 1.25rem;
+      margin-bottom: 4px;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .metric {
+      min-height: 86px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .metric span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.78rem;
+    }
+
+    .metric b {
+      display: block;
+      margin-top: 4px;
+      font-size: 1.28rem;
+      overflow-wrap: anywhere;
+    }
+
+    .recommendation {
+      color: var(--muted);
+      border-top: 1px solid var(--line);
+      padding-top: 12px;
+    }
+
+    .full { grid-column: 1 / -1; }
+
+    @media (max-width: 860px) {
+      main { grid-template-columns: 1fr; }
+      .results { position: static; }
+    }
+
+    @media (max-width: 560px) {
+      .grid, .metrics { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Cognitive Efficiency Calculator</h1>
+    <p class="dek">A rough, honest projection of whether your AI subscriptions and workflows are producing accepted value, or just more review work.</p>
+  </header>
+
+  <main>
+    <div class="stack">
+      <section>
+        <h2>Profile</h2>
+        <div class="grid">
+          <label>
+            Lens
+            <select id="lens">
+              <option>Personal</option>
+              <option>Founder</option>
+              <option>Team</option>
+              <option>Company</option>
+            </select>
+          </label>
+          <label>
+            Workflow
+            <select id="workflow">
+              <option>Writing / docs</option>
+              <option>Coding</option>
+              <option>Research</option>
+              <option>Resume / applications</option>
+              <option>Support / email</option>
+              <option>Analysis</option>
+              <option>Other</option>
+            </select>
+          </label>
+        </div>
+      </section>
+
+      <section>
+        <h2>Subscriptions</h2>
+        <div class="grid">
+          <label>ChatGPT / OpenAI monthly $<input id="subOpenAI" type="number" min="0" value="20"></label>
+          <label>Claude monthly $<input id="subClaude" type="number" min="0" value="20"></label>
+          <label>Cursor / coding tools monthly $<input id="subCursor" type="number" min="0" value="0"></label>
+          <label>API / other monthly $<input id="subOther" type="number" min="0" value="0"></label>
+        </div>
+      </section>
+
+      <section>
+        <h2>Usage</h2>
+        <div class="grid">
+          <label>AI-assisted tasks per week<input id="tasksWeek" type="number" min="0" step="1" value="8"></label>
+          <label>Manual baseline minutes per task<input id="manualMin" type="number" min="0" step="1" value="60"></label>
+          <label>AI-assisted minutes per task<input id="aiMin" type="number" min="0" step="1" value="28"></label>
+          <label>Review / rework minutes per task<input id="reviewMin" type="number" min="0" step="1" value="12"></label>
+        </div>
+      </section>
+
+      <section>
+        <h2>Value Proxy</h2>
+        <div class="grid">
+          <label>Hourly value or loaded wage $<input id="hourlyValue" type="number" min="0" step="1" value="75"></label>
+          <label>Company revenue per month $<input id="revenueMonth" type="number" min="0" step="100" value="0"></label>
+          <label>Direct value per accepted task $<input id="taskValue" type="number" min="0" step="1" value="0"></label>
+          <label>Quality lift %<input id="qualityLift" type="number" min="-100" max="300" step="1" value="10"></label>
+        </div>
+      </section>
+
+      <section>
+        <h2>Validation</h2>
+        <div class="grid">
+          <label>Accepted output rate %<input id="acceptedRate" type="number" min="0" max="100" step="1" value="75"></label>
+          <label>Risk / error cost per month $<input id="riskCost" type="number" min="0" step="1" value="0"></label>
+          <label>Cheaper sufficient setup monthly $<input id="cheapSetup" type="number" min="0" step="1" value="0"></label>
+          <label>One-time setup hours this month<input id="setupHours" type="number" min="0" step="0.5" value="0"></label>
+        </div>
+      </section>
+    </div>
+
+    <aside class="results">
+      <section>
+        <div id="verdict" class="verdict">
+          <strong>Worth it</strong>
+          <span>Your current AI usage appears to create more validated value than it costs.</span>
+        </div>
+
+        <div class="metrics" style="margin-top: 12px;">
+          <div class="metric"><span>Monthly AI cost</span><b id="monthlyCost">$0</b></div>
+          <div class="metric"><span>Monthly time saved</span><b id="timeSaved">0h</b></div>
+          <div class="metric"><span>Net value</span><b id="netValue">$0</b></div>
+          <div class="metric"><span>Total ROI</span><b id="roi">0.00x</b></div>
+          <div class="metric"><span>Cognitive efficiency</span><b id="ce">0.00x</b></div>
+          <div class="metric"><span>Review burden</span><b id="burden">0%</b></div>
+        </div>
+
+        <p id="recommendation" class="recommendation"></p>
+        <button id="downloadJson" type="button">Download evaluator JSON</button>
+      </section>
+    </aside>
+  </main>
+
+  <script>
+    const ids = [
+      "subOpenAI", "subClaude", "subCursor", "subOther", "tasksWeek", "manualMin",
+      "aiMin", "reviewMin", "hourlyValue", "revenueMonth", "taskValue", "qualityLift",
+      "acceptedRate", "riskCost", "cheapSetup", "setupHours"
+    ];
+
+    const money = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
+
+    function num(id) {
+      const value = Number(document.getElementById(id).value);
+      return Number.isFinite(value) ? value : 0;
+    }
+
+    function setText(id, value) {
+      document.getElementById(id).textContent = value;
+    }
+
+    function calculate() {
+      const monthlySubscriptions = num("subOpenAI") + num("subClaude") + num("subCursor") + num("subOther");
+      const tasksMonth = num("tasksWeek") * 4.33;
+      const manualHours = tasksMonth * num("manualMin") / 60;
+      const aiExecutionHours = tasksMonth * num("aiMin") / 60;
+      const reviewHours = tasksMonth * num("reviewMin") / 60;
+      const setupCost = num("setupHours") * num("hourlyValue");
+      const totalAiHours = aiExecutionHours + reviewHours + num("setupHours");
+      const timeSavedHours = Math.max(0, manualHours - aiExecutionHours - reviewHours);
+      const acceptedRate = Math.max(0, Math.min(1, num("acceptedRate") / 100));
+      const qualityLift = num("qualityLift") / 100;
+      const hourlyValue = num("hourlyValue");
+      const directTaskValue = num("taskValue") * tasksMonth * acceptedRate;
+      const timeValue = timeSavedHours * hourlyValue;
+      const revenueProxy = num("revenueMonth") > 0 ? num("revenueMonth") * 0.01 * acceptedRate : 0;
+      const baseValue = Math.max(directTaskValue, timeValue, revenueProxy);
+      const qualityValue = Math.max(0, baseValue * qualityLift);
+      const validatedValue = (baseValue + qualityValue) * acceptedRate;
+      const humanAiCost = totalAiHours * hourlyValue;
+      const totalCost = monthlySubscriptions + humanAiCost + num("riskCost");
+      const netValue = validatedValue - totalCost;
+      const roi = totalCost > 0 ? netValue / totalCost : 0;
+      const ce = monthlySubscriptions > 0 ? validatedValue / monthlySubscriptions : 0;
+      const burden = (aiExecutionHours + reviewHours) > 0 ? reviewHours / (aiExecutionHours + reviewHours) : 0;
+      const cheaper = num("cheapSetup");
+      const overuse = cheaper > 0 && cheaper < monthlySubscriptions ? monthlySubscriptions - cheaper : 0;
+      const result = {
+        workflow: document.getElementById("workflow").value,
+        tasksMonth,
+        manualHours,
+        aiExecutionHours,
+        reviewHours,
+        monthlySubscriptions,
+        hourlyValue,
+        validatedValue,
+        totalCost,
+        netValue,
+        acceptedRate,
+        riskCost: num("riskCost"),
+        cheaper,
+      };
+
+      setText("monthlyCost", money.format(monthlySubscriptions));
+      setText("timeSaved", `${timeSavedHours.toFixed(1)}h`);
+      setText("netValue", money.format(netValue));
+      setText("roi", `${roi.toFixed(2)}x`);
+      setText("ce", `${ce.toFixed(2)}x`);
+      setText("burden", `${Math.round(burden * 100)}%`);
+
+      const verdict = document.getElementById("verdict");
+      verdict.className = "verdict";
+      let title = "Worth it";
+      let body = "Your current AI usage appears to create more validated value than it costs.";
+      let recommendation = "Next move: measure one real workflow for a week and replace the rough estimates with accepted/edit/discard observations.";
+
+      if (netValue < 0) {
+        verdict.classList.add("bad");
+        title = "Not yet justified";
+        body = "The current projection loses value after subscriptions, review time, setup time, and risk.";
+        recommendation = "Next move: narrow AI use to the task type with the highest accepted-output rate, then retest.";
+      } else if (burden > 0.45) {
+        verdict.classList.add("warning");
+        title = "Attention bottleneck";
+        body = "The economics work, but review and rework are eating a large share of the gain.";
+        recommendation = "Next move: improve prompts, templates, or validation checklists before optimizing model spend.";
+      } else if (overuse > 0 && ce < 10) {
+        verdict.classList.add("warning");
+        title = "Possible overuse";
+        body = "A cheaper setup may reach a similar outcome, so the excess subscription/API spend is suspect.";
+        recommendation = `Next move: benchmark the cheaper setup. Potential monthly overuse penalty: ${money.format(overuse)}.`;
+      } else if (acceptedRate < 0.6) {
+        verdict.classList.add("warning");
+        title = "Validation weak";
+        body = "Too much output is being rejected or rewritten, so booked value should be treated cautiously.";
+        recommendation = "Next move: route AI toward drafts, search, or critique rather than final output.";
+      }
+
+      verdict.querySelector("strong").textContent = title;
+      verdict.querySelector("span").textContent = body;
+      document.getElementById("recommendation").textContent = recommendation;
+      window.currentProjection = result;
+    }
+
+    function downloadEvaluatorJson() {
+      const p = window.currentProjection || {};
+      const baselineHumanHours = p.manualHours || 0;
+      const aiHumanHours = p.aiExecutionHours || 0;
+      const reworkHours = p.reviewHours || 0;
+      const baselineValue = baselineHumanHours * (p.hourlyValue || 0);
+      const aiValue = baselineValue + (p.validatedValue || 0);
+      const data = {
+        task_description: `${p.workflow || "AI-assisted workflow"} projection`,
+        domain: p.workflow || "other",
+        model: "mixed subscriptions / user-entered projection",
+        date: new Date().toISOString().slice(0, 10),
+        value: {
+          baseline_value_usd: Number(baselineValue.toFixed(2)),
+          ai_value_usd: Number(aiValue.toFixed(2))
+        },
+        cost_baseline: {
+          human_hours: Number(baselineHumanHours.toFixed(2)),
+          loaded_wage_usd_per_hour: p.hourlyValue || 0,
+          other_cost_usd: 0,
+          risk_cost_usd: 0
+        },
+        cost_ai: {
+          tokens_input: 0,
+          tokens_output: 0,
+          token_cost_usd: Number((p.monthlySubscriptions || 0).toFixed(2)),
+          infra_cost_usd: 0,
+          human_hours: Number(aiHumanHours.toFixed(2)),
+          loaded_wage_usd_per_hour: p.hourlyValue || 0,
+          rework_hours: Number(reworkHours.toFixed(2)),
+          risk_cost_usd: p.riskCost || 0,
+          coord_cost_usd: 0
+        },
+        validation: {
+          validation_confidence: Number((p.acceptedRate || 0).toFixed(3)),
+          deployment_rate: Number((p.acceptedRate || 0).toFixed(3))
+        },
+        behavioral_log: { observations: [] },
+        overuse_benchmark: {
+          min_sufficient_ai_cost_usd: p.cheaper > 0 ? p.cheaper : null,
+          benchmark_description: p.cheaper > 0 ? "User-entered cheaper sufficient setup" : ""
+        },
+        notes: "Generated by mvp/calculator.html from rough projection inputs."
+      };
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "cognitive-efficiency-projection.json";
+      link.click();
+      URL.revokeObjectURL(link.href);
+    }
+
+    ids.forEach((id) => document.getElementById(id).addEventListener("input", calculate));
+    document.getElementById("downloadJson").addEventListener("click", downloadEvaluatorJson);
+    calculate();
+  </script>
+</body>
+</html>
